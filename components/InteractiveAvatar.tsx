@@ -323,15 +323,7 @@ export default function InteractiveAvatar() {
         </CardBody>
         <Divider />
         <CardFooter className="flex flex-col gap-3">
-          <InteractiveAvatarTextInput
-            label="Repeat"
-            placeholder="Type something for the avatar to repeat"
-            input={text}
-            onSubmit={handleSpeak}
-            setInput={setText}
-            disabled={!stream}
-            loading={isLoadingRepeat}
-          />
+
           <InteractiveAvatarTextInput
             label="Chat"
             placeholder="Chat with the avatar (uses ChatGPT)"
