@@ -21,7 +21,7 @@ import clsx from "clsx";
 import OpenAI from "openai";
 import { useEffect, useRef, useState } from "react";
 import InteractiveAvatarTextInput from "./InteractiveAvatarTextInput";
-import raw from "./test";
+import raw from "../test";
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
