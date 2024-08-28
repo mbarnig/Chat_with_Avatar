@@ -28,6 +28,16 @@ const openai = new OpenAI({
 });
 
 export default function InteractiveAvatar() {
+  const [fileContent, setFileContent] = useState('');  
+
+  useEffect(() => {
+    fetch('/test')  // Fetches the file from the public directory
+      .then((response) => response.text())
+      .then((data) => setFileContent(data))
+      .catch((error) => console.error('Error fetching file:', error));
+  }, []);
+  setDebug({FileContent})
+  
   const [isLoadingSession, setIsLoadingSession] = useState(false);
   const [isLoadingRepeat, setIsLoadingRepeat] = useState(false);
   const [isLoadingChat, setIsLoadingChat] = useState(false);
