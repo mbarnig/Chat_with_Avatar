@@ -28,7 +28,7 @@ const openai = new OpenAI({
 });
 
 export default function InteractiveAvatar() {
-  const [fileContent, setFileContent] = useState(''); 
+  // const [fileContent, setFileContent] = useState(''); 
   const [isLoadingSession, setIsLoadingSession] = useState(false);
   const [isLoadingRepeat, setIsLoadingRepeat] = useState(false);
   const [isLoadingChat, setIsLoadingChat] = useState(false);
@@ -72,13 +72,13 @@ export default function InteractiveAvatar() {
     ],
   });
 
-    useEffect(() => {
-    fetch('/test')  // Fetches the file from the public directory
-      .then((response) => response.text())
-      .then((data) => setFileContent(data))
-      .catch((error) => console.error('Error fetching file:', error));
-  }, []);
-  console.log("FileContent",fileContent)
+    // useEffect(() => {
+    // fetch('/test')  // Fetches the file from the public directory
+    //  .then((response) => response.text())
+    // .then((data) => setFileContent(data))
+    // .catch((error) => console.error('Error fetching file:', error));
+    // }, []);
+    // console.log("FileContent",fileContent)
   
   // Function to verify the password by calling HuggingFace API
   async function checkPassword() {
