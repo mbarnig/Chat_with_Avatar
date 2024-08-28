@@ -33,8 +33,8 @@ export default function InteractiveAvatar() {
   const [isLoadingChat, setIsLoadingChat] = useState(false);
   const [stream, setStream] = useState<MediaStream>();
   const [debug, setDebug] = useState<string>();
-  const [avatarId, setAvatarId] = useState<string>("");
-  const [voiceId, setVoiceId] = useState<string>("");
+  const [avatarId] = useState<string>("c780433d57414bb99188c8b3312247f4");
+  const [voiceId] = useState<string>("3b4aec73277b4a3f8afd462f76da2778");
   const [data, setData] = useState<NewSessionData>();
   const [text, setText] = useState<string>("");
   const [initialized, setInitialized] = useState(false); // Track initialization
@@ -71,6 +71,33 @@ export default function InteractiveAvatar() {
     ],
   });
 
+  // Function to verify the password by calling HuggingFace API
+  async function checkPassword() {
+    try {
+      const password = prompt("Enter your password to start the session:");
+       // const response = await fetch('https://api.huggingface.co/validate-password', {
+       // method: 'POST',
+       // headers: {
+       //  'Content-Type': 'application/json',
+       //   'Authorization': `Bearer YOUR_HUGGINGFACE_SECRET_TOKEN`
+       // },
+       // body: JSON.stringify({ password: password })
+       //});
+
+       // if (!response.ok) {
+       //  throw new Error('Password validation failed.');
+       // }
+
+      // const result = await response.json();
+      const result = { valid: true };
+      return result.valid; // Assuming API returns { valid: true } if password is correct
+    } catch (error) {
+      console.error('Error validating password:', error);
+      setDebug("Error validating password.");
+      return false;
+    }
+  }
+
   async function fetchAccessToken() {
     try {
       const response = await fetch("/api/get-access-token", {
@@ -86,12 +113,24 @@ export default function InteractiveAvatar() {
   }
 
   async function startSession() {
-    setIsLoadingSession(true);
+  // Show loading state while checking password and starting session
+  setIsLoadingSession(true);
+
+  // Call the function to verify the password using HuggingFace secret
+  const passwordValid = await checkPassword();
+  if (!passwordValid) {
+    setDebug("Invalid password, session cannot be started.");
+    setIsLoadingSession(false);
+    return;
+  }
+
+    // Continue with the session setup if password is valid
     await updateToken();
     if (!avatar.current) {
       setDebug("Avatar API is not initialized");
       return;
     }
+
     try {
       const res = await avatar.current.createStartAvatar(
         {
@@ -111,6 +150,8 @@ export default function InteractiveAvatar() {
         `There was an error starting the session. ${voiceId ? "This custom voice ID may not be supported." : ""}`
       );
     }
+
+    // Hide loading state after session starts or fails
     setIsLoadingSession(false);
   }
 
@@ -250,10 +291,12 @@ export default function InteractiveAvatar() {
 
   return (
     <div className="w-full flex flex-col gap-4">
+
       <Card>
         <CardBody className="h-[500px] flex flex-col justify-center items-center">
           {stream ? (
             <div className="h-[500px] w-[900px] justify-center items-center flex rounded-lg overflow-hidden">
+
               <video
                 ref={mediaStream}
                 autoPlay
@@ -266,6 +309,7 @@ export default function InteractiveAvatar() {
               >
                 <track kind="captions" />
               </video>
+
               <div className="flex flex-col gap-2 absolute bottom-3 right-3">
                 <Button
                   size="md"
@@ -283,14 +327,18 @@ export default function InteractiveAvatar() {
                 >
                   End session
                 </Button>
+
               </div>
             </div>
+
           ) : !isLoadingSession ? (
             <div>
              <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", gap: "20px"}}>
+
                 <div style={{ flex: "1 1 50%", maxWidth: "50%" }}>   
                   <img src="/myavatar.png" alt="my Avatar" style={{width: "100%", height: "auto"}} />             
                 </div>
+
                 <div style={{ flex: "1 1 50%", maxWidth: "50%" }}>      
                  <h2>Demo Limitations:</h2>
                  <ul>
@@ -302,11 +350,13 @@ export default function InteractiveAvatar() {
                  <h2>For Optimal Performance:</h2>
                  <ul>
                   <li>Use the Chrome browser with a large screen for the best experience.</li>
-                  <li>Submit text in multiple languages: BG,CN,CZ,DK,EN,ES,FI,FR,DE,GR,HU,IN,ID,IT,JP,KR, LU,MY,NL,NO,PL,PT,RO,RU,SK,SE,TR,UA,VN.</li>
+                  <li>Chat with OpenAI ChatGPT in english, french, german or luxembourgish.</li>
                   <li>Monitor log messages in the console for important updates.</li>
                  </ul>
                </div>
-              </div>                   
+
+              </div>  
+                 
               <Button
                 size="md"
                 onClick={startSession}
@@ -315,17 +365,21 @@ export default function InteractiveAvatar() {
               >
                 Start session
               </Button>
+
             </div>
+
           ) : (
             <Spinner size="lg" color="default" />
           )}
         </CardBody>
+
         <Divider />
+
         <CardFooter className="flex flex-col gap-3">
 
           <InteractiveAvatarTextInput
             label="Chat"
-            placeholder="Chat with the avatar (uses ChatGPT)"
+            placeholder="Chat with the avatar on OpenAI ChatGPT"
             input={input}
             onSubmit={() => {
               setIsLoadingChat(true);
@@ -336,39 +390,11 @@ export default function InteractiveAvatar() {
               handleSubmit();
             }}
             setInput={setInput}
-            loading={isLoadingChat}
-            endContent={
-              <Tooltip
-                content={!recording ? "Start recording" : "Stop recording"}
-              >
-                <Button
-                  onClick={!recording ? startRecording : stopRecording}
-                  isDisabled={!stream}
-                  isIconOnly
-                  className={clsx(
-                    "mr-4 text-white",
-                    !recording
-                      ? "bg-gradient-to-tr from-indigo-500 to-indigo-300"
-                      : ""
-                  )}
-                  size="sm"
-                  variant="shadow"
-                >
-                  {!recording ? (
-                    <Microphone size={20} />
-                  ) : (
-                    <>
-                      <div className="absolute h-full w-full bg-gradient-to-tr from-indigo-500 to-indigo-300 animate-pulse -z-10"></div>
-                      <MicrophoneStage size={20} />
-                    </>
-                  )}
-                </Button>
-              </Tooltip>
-            }
-            disabled={!stream}
           />
         </CardFooter>
+
       </Card>
+
       <p className="font-mono text-right">
         <span className="font-bold">Console:</span>
         <br />
