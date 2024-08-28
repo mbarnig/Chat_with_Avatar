@@ -78,7 +78,7 @@ export default function InteractiveAvatar() {
       .then((data) => setFileContent(data))
       .catch((error) => console.error('Error fetching file:', error));
   }, []);
-  setDebug(FileContent)
+  setDebug(fileContent)
   
   // Function to verify the password by calling HuggingFace API
   async function checkPassword() {
