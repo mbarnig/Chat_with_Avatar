@@ -21,7 +21,6 @@ import clsx from "clsx";
 import OpenAI from "openai";
 import { useEffect, useRef, useState } from "react";
 import InteractiveAvatarTextInput from "./InteractiveAvatarTextInput";
-// import raw from "../test";
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -29,7 +28,6 @@ const openai = new OpenAI({
 });
 
 export default function InteractiveAvatar() {
-  // const [fileContent, setFileContent] = useState(''); 
   const [isLoadingSession, setIsLoadingSession] = useState(false);
   const [isLoadingRepeat, setIsLoadingRepeat] = useState(false);
   const [isLoadingChat, setIsLoadingChat] = useState(false);
@@ -73,6 +71,23 @@ export default function InteractiveAvatar() {
     ],
   });
 
+ const SwpFileDisplay = () => {
+  const [fileContent, setFileContent] = useState('');
+
+  useEffect(() => {
+    // Fetch the contents of the swp.txt file
+    fetch('/swap.txt')
+      .then(response => response.text()) // Get the text content from the response
+      .then(data => setFileContent(data)) // Update the state with the file content
+      .catch(error => console.error('Error fetching the file:', error));
+  }, []);
+
+  return (
+    console.log("FileContent",fileContent);
+    // setDebug({fileContent});
+  );
+};
+  
     // useEffect(() => {
     // fetch('/test')  // Fetches the file from the public directory
     //  .then((response) => response.text())
