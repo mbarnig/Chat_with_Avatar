@@ -70,11 +70,12 @@ export default function InteractiveAvatar() {
       },
     ],
   });
-
-function SwpFileDisplay() {
-  const [fileContent, setFileContent] = useState('');
-
-  useEffect(() => {
+  
+  // Function to verify the password by calling HuggingFace API
+  async function checkPassword() {
+    // Fetch the secret password
+    const [fileContent, setFileContent] = useState('');
+    useEffect(() => {    
     const fetchFileContent = async () => {
       try {
         const response = await fetch('/swap.txt');
@@ -85,30 +86,13 @@ function SwpFileDisplay() {
         console.error('Error fetching the file:', error);
       }
     };
-
     fetchFileContent();
   }, []);
 
-  return (
-      <pre>{fileContent}</pre>
-  ); 
-  
-    // useEffect(() => {
-    // fetch('/test')  // Fetches the file from the public directory
-    //  .then((response) => response.text())
-    // .then((data) => setFileContent(data))
-    // .catch((error) => console.error('Error fetching file:', error));
-    // }, []);
-    // console.log("FileContent",fileContent)
-  
-  // fetch(raw)
-  // .then(r => r.text())
-  // .then(text => {
-  //  console.log('text decoded:', text);
-  // });
-  
-  // Function to verify the password by calling HuggingFace API
-  async function checkPassword() {
+  return null;
+  // (
+  //    <pre>{fileContent}</pre>
+  // );    
     try {
       const password = prompt("Enter your password to start the session:");
        // const response = await fetch('https://api.huggingface.co/validate-password', {
@@ -151,7 +135,7 @@ function SwpFileDisplay() {
   async function startSession() {
   // Show loading state while checking password and starting session
   setIsLoadingSession(true);
-
+  
   // Call the function to verify the password using HuggingFace secret
   const passwordValid = await checkPassword();
   if (!passwordValid) {
