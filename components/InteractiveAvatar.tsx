@@ -132,17 +132,26 @@ export default function InteractiveAvatar() {
     }
   }
 
-  async function startSession() {
-  // Show loading state while checking password and starting session
-  setIsLoadingSession(true);
-  
-  // Call the function to verify the password using HuggingFace secret
-  const passwordValid = await checkPassword();
-  if (!passwordValid) {
-    setDebug("Invalid password, session cannot be started.");
-    setIsLoadingSession(false);
-    return;
-  }
+ function CheckPassword() {
+  const [fileContent, setFileContent] = useState('');
+
+  useEffect(() => {
+    const fetchFileContent = async () => {
+      try {
+        const response = await fetch('/swap.txt'); // Fetch the file
+        const data = await response.text(); // Convert the response to text
+        setFileContent(data); // Update the state with the file content
+        console.log("swap.txt :", data); // Log the fetched data
+      } catch (error) {
+        console.error('Error fetching the file:', error);
+      }
+    };
+
+    fetchFileContent(); // Call the async function
+  }, []); // Empty dependency array ensures this effect runs only once
+
+  return null; // This component doesn't render anything
+}
 
     // Continue with the session setup if password is valid
     await updateToken();
