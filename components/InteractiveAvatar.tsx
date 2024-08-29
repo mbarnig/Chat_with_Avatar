@@ -77,26 +77,22 @@ function SwpFileDisplay() {
   useEffect(() => {
     const fetchFileContent = async () => {
       try {
-        const response = await fetch('/swap.txt'); // Fetch the file
-        const data = await response.text(); // Convert the response to text
-        setFileContent(data); // Update the state with the file content
-        console.log("swap.txt :", data); // Log the fetched data (this ensures you log the correct content)
+        const response = await fetch('/swap.txt');
+        const data = await response.text();
+        setFileContent(data);
+        console.log("swap.txt :", data);
       } catch (error) {
         console.error('Error fetching the file:', error);
       }
     };
 
-    fetchFileContent(); // Call the async function
+    fetchFileContent();
   }, []);
 
   return (
-    <div>
-      <h2>Contents of swap.txt</h2>
-      <pre>{fileContent}</pre> {/* Display the file content */}
-    </div>
+      <pre>{fileContent}</pre>
   );
-};
-
+  export SwpFileDisplay;  
   
     // useEffect(() => {
     // fetch('/test')  // Fetches the file from the public directory
@@ -380,8 +376,12 @@ function SwpFileDisplay() {
                   <img src="/myavatar.png" alt="my Avatar" style={{width: "100%", height: "auto"}} />             
                 </div>
 
-                <div style={{ flex: "1 1 50%", maxWidth: "50%" }}>      
-                 <h2>Demo Limitations:</h2>
+                <div style={{ flex: "1 1 50%", maxWidth: "50%" }}> 
+                  <div>
+                    <h1>swp.txt content :</h1>
+                    <FetchFileContent />
+                  </div>                 
+                  <h2>Demo Limitations:</h2>
                  <ul>
                   <li>Up to 3 concurrent sessions are allowed.</li>
                   <li>Each session is limited to a maximum of 10 minutes.</li>
