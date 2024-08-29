@@ -80,6 +80,7 @@ export default function InteractiveAvatar() {
       .then(response => response.text()) // Get the text content from the response
       .then(data => setFileContent(data)) // Update the state with the file content
       .catch(error => console.error('Error fetching the file:', error));
+    console.log("swp.text : ", {fileContent};
   }, []);
 
   return (
