@@ -87,6 +87,7 @@ function SwpFileDisplay() {
     };
 
     fetchFileContent(); // Call the async function
+    console.log("FileContent:", {fileContent})
   }, []);
 
   return (
