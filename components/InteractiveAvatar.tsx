@@ -90,6 +90,7 @@ export default function InteractiveAvatar() {
     </div>
   );
 };
+export default SwpFileDisplay;
   
     // useEffect(() => {
     // fetch('/test')  // Fetches the file from the public directory
