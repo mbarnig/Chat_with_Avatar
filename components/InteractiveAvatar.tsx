@@ -477,13 +477,7 @@ export default function InteractiveAvatar() {
         <span className="font-bold">Console:</span>
         <br />
         {debug}
-      </p>
-      // <div>
-      // <h1>SwpFileDisplay:</h1>
-      //  {/* Calling or rendering the SwpFileDisplay component */}
-      //  <SwpFileDisplay />
-      // </div>      
-      
+      </p>          
     </div>
   );
 }
