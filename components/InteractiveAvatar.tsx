@@ -414,10 +414,7 @@ export default function InteractiveAvatar() {
                 </div>
 
                 <div style={{ flex: "1 1 50%", maxWidth: "50%" }}> 
-                  <div>
-                    <h1>swp.txt content :</h1>
-                    <FetchFileContent />
-                  </div>                 
+                 
                   <h2>Demo Limitations:</h2>
                  <ul>
                   <li>Up to 3 concurrent sessions are allowed.</li>
