@@ -115,7 +115,6 @@ function SwpFileDisplay() {
   // Function to verify the password by calling HuggingFace API
   async function checkPassword() {
     try {
-      <SwpFileDisplay />
       const password = prompt("Enter your password to start the session:");
        // const response = await fetch('https://api.huggingface.co/validate-password', {
        // method: 'POST',
@@ -436,12 +435,18 @@ function SwpFileDisplay() {
         </CardFooter>
 
       </Card>
-
+      
       <p className="font-mono text-right">
         <span className="font-bold">Console:</span>
         <br />
         {debug}
       </p>
+      <div>
+        <h1>SwpFileDisplay:</h1>
+        {/* Calling or rendering the SwpFileDisplay component */}
+        <SwpFileDisplay />
+      </div>      
+      
     </div>
   );
 }
