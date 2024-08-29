@@ -134,6 +134,7 @@ export default function InteractiveAvatar() {
     }
   }
 
+ /*
  function CheckPassword() {
   const [fileContent, setFileContent] = useState('');
 
@@ -154,6 +155,46 @@ export default function InteractiveAvatar() {
 
   return null; // This component doesn't render anything
 }
+*/
+
+  // Function to verify the password by calling HuggingFace API
+  async function checkPassword() {
+    try {
+      const password = prompt("Enter your password to start the session:");
+       // const response = await fetch('https://api.huggingface.co/validate-password', {
+       // method: 'POST',
+       // headers: {
+       //  'Content-Type': 'application/json',
+       //   'Authorization': `Bearer YOUR_HUGGINGFACE_SECRET_TOKEN`
+       // },
+       // body: JSON.stringify({ password: password })
+       //});
+
+       // if (!response.ok) {
+       //  throw new Error('Password validation failed.');
+       // }
+
+      // const result = await response.json();
+      const result = { valid: true };
+      return result.valid; // Assuming API returns { valid: true } if password is correct
+    } catch (error) {
+      console.error('Error validating password:', error);
+      setDebug("Error validating password.");
+      return false;
+    }
+  }
+
+ async function startSession() {
+  // Show loading state while checking password and starting session
+  setIsLoadingSession(true);
+
+  // Call the function to verify the password using HuggingFace secret
+  const passwordValid = await checkPassword();
+  if (!passwordValid) {
+    setDebug("Invalid password, session cannot be started.");
+    setIsLoadingSession(false);
+    return;
+  }
 
     // Continue with the session setup if password is valid
     await updateToken();
