@@ -70,7 +70,8 @@ export default function InteractiveAvatar() {
       },
     ],
   });
-  
+
+  /*
   // Function to verify the password by calling HuggingFace API
   function CheckPassword() {
   const [fileContent, setFileContent] = useState('');
@@ -119,6 +120,7 @@ export default function InteractiveAvatar() {
       return false;
     }
   }
+  */
 
   async function fetchAccessToken() {
     try {
@@ -155,8 +157,8 @@ export default function InteractiveAvatar() {
 
   return null; // This component doesn't render anything
 }
-*/
 
+*/
   // Function to verify the password by calling HuggingFace API
   async function checkPassword() {
     try {
@@ -476,11 +478,11 @@ export default function InteractiveAvatar() {
         <br />
         {debug}
       </p>
-      <div>
-        <h1>SwpFileDisplay:</h1>
-        {/* Calling or rendering the SwpFileDisplay component */}
-        <SwpFileDisplay />
-      </div>      
+      // <div>
+      // <h1>SwpFileDisplay:</h1>
+      //  {/* Calling or rendering the SwpFileDisplay component */}
+      //  <SwpFileDisplay />
+      // </div>      
       
     </div>
   );
