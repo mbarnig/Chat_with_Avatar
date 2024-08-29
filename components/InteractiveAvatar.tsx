@@ -83,8 +83,10 @@ export default function InteractiveAvatar() {
   }, []);
 
   return (
-    console.log("FileContent",fileContent);
-    // setDebug({fileContent});
+    <div>
+      <h2>Contents of swap.txt</h2>
+      <pre>{fileContent}</pre> {/* Display the file content */}
+    </div>
   );
 };
   
