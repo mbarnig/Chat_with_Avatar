@@ -7,7 +7,9 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/react";
+
 import { GithubIcon } from "./Icons";
+
 import { ThemeSwitch } from "./ThemeSwitch";
 
 export default function NavBar() {
@@ -27,7 +29,7 @@ export default function NavBar() {
             isExternal
             aria-label="Github"
             href="https://github.com/mbarnig/InteractiveAvatarNextJSDemo.git"
-            className="flex flex-row justify-center gap-1 text-foreground"
+            className="flex flex-row gap-1 justify-center text-foreground"
           >
             <GithubIcon className="text-default-500" />
             Github
