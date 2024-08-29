@@ -91,8 +91,7 @@ function SwpFileDisplay() {
 
   return (
       <pre>{fileContent}</pre>
-  );
-  export SwpFileDisplay;  
+  ); 
   
     // useEffect(() => {
     // fetch('/test')  // Fetches the file from the public directory
