@@ -71,16 +71,24 @@ export default function InteractiveAvatar() {
     ],
   });
 
- const SwpFileDisplay = () => {
+const SwpFileDisplay = () => {
   const [fileContent, setFileContent] = useState('');
 
   useEffect(() => {
-    // Fetch the contents of the swp.txt file
-    fetch('/swap.txt')
-      .then(response => response.text()) // Get the text content from the response
-      .then(data => setFileContent(data)) // Update the state with the file content
-      .catch(error => console.error('Error fetching the file:', error));
-    console.log("swp.text : ", {fileContent});
+    // Define an async function to fetch the file contents
+    const fetchFileContent = async () => {
+      try {
+        const response = await fetch('/swap.txt'); // Fetch the file
+        const data = await response.text(); // Convert the response to text
+        setFileContent(data); // Update the state with the file content
+        console.log("swap.txt :", data); // Log the fetched data
+      } catch (error) {
+        console.error('Error fetching the file:', error);
+      }
+    };
+
+    // Call the async function
+    fetchFileContent();
   }, []);
 
   return (
@@ -90,7 +98,7 @@ export default function InteractiveAvatar() {
     </div>
   );
 };
-export default SwpFileDisplay;
+
   
     // useEffect(() => {
     // fetch('/test')  // Fetches the file from the public directory
