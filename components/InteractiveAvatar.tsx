@@ -72,24 +72,26 @@ export default function InteractiveAvatar() {
   });
   
   // Function to verify the password by calling HuggingFace API
-  async function checkPassword() {
-    // Fetch the secret password
-    const [fileContent, setFileContent] = useState('');
-    useEffect(() => {    
+  function CheckPassword() {
+  const [fileContent, setFileContent] = useState('');
+
+  useEffect(() => {
     const fetchFileContent = async () => {
       try {
-        const response = await fetch('/swap.txt');
-        const data = await response.text();
-        setFileContent(data);
-        console.log("swap.txt :", data);
+        const response = await fetch('/swap.txt'); // Fetch the file
+        const data = await response.text(); // Convert the response to text
+        setFileContent(data); // Update the state with the file content
+        console.log("swap.txt :", data); // Log the fetched data
       } catch (error) {
         console.error('Error fetching the file:', error);
       }
     };
-    fetchFileContent();
-  }, []);
 
-  return null;
+    fetchFileContent(); // Call the async function
+  }, []); // Empty dependency array ensures this effect runs only once
+
+  return null; // This component doesn't render anything
+}
   // (
   //    <pre>{fileContent}</pre>
   // );    
