@@ -71,24 +71,22 @@ export default function InteractiveAvatar() {
     ],
   });
 
-const SwpFileDisplay = () => {
+function SwpFileDisplay() {
   const [fileContent, setFileContent] = useState('');
 
   useEffect(() => {
-    // Define an async function to fetch the file contents
     const fetchFileContent = async () => {
       try {
         const response = await fetch('/swap.txt'); // Fetch the file
         const data = await response.text(); // Convert the response to text
         setFileContent(data); // Update the state with the file content
-        console.log("swap.txt :", data); // Log the fetched data
+        console.log("swap.txt :", data); // Log the fetched data (this ensures you log the correct content)
       } catch (error) {
         console.error('Error fetching the file:', error);
       }
     };
 
-    // Call the async function
-    fetchFileContent();
+    fetchFileContent(); // Call the async function
   }, []);
 
   return (
@@ -117,6 +115,7 @@ const SwpFileDisplay = () => {
   // Function to verify the password by calling HuggingFace API
   async function checkPassword() {
     try {
+      {SwpFileDisplay}
       const password = prompt("Enter your password to start the session:");
        // const response = await fetch('https://api.huggingface.co/validate-password', {
        // method: 'POST',
