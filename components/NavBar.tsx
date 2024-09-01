@@ -18,7 +18,7 @@ export default function NavBar() {
       <NavbarBrand>
         <div className="bg-gradient-to-br from-sky-300 to-indigo-500 bg-clip-text ml-4">
           <p className="text-xl font-semibold text-transparent">
-            Interactive CWA (Chat with Avatar) Demo based on HeyGen SDK
+            Interactive CWMA (Chat with my Avatar) Demo based on HeyGen SDK
           </p>
         </div>
       </NavbarBrand>
