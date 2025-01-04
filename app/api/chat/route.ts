@@ -2,7 +2,7 @@ import { OpenAI } from "openai";
 import { Readable } from "stream";
 
 // Initialize OpenAI API client
-const openai = new OpenAIApi({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // Ensure your API key is set as an environment variable
 });
 
