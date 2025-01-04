@@ -1,11 +1,10 @@
-import { Configuration, OpenAIApi } from "openai";
+import { OpenAIApi } from "openai";
 import { Readable } from "stream";
 
-// Configure OpenAI API client
-const configuration = new Configuration({
+// Initialize OpenAI API client
+const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY, // Ensure your API key is set as an environment variable
 });
-const openai = new OpenAIApi(configuration);
 
 // Maximum duration for responses
 export const maxDuration = 30;
@@ -24,7 +23,7 @@ export async function POST(req) {
     }
 
     // Call OpenAI API with the streaming option enabled
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       model: "gpt-4-turbo", // Use the desired model
       messages,
       stream: true, // Enable streaming
@@ -35,7 +34,7 @@ export async function POST(req) {
       read() {},
     });
 
-    response.data.on("data", (chunk) => {
+    response.on("data", (chunk) => {
       const parsedChunk = JSON.parse(chunk.toString());
       if (parsedChunk.choices && parsedChunk.choices.length > 0) {
         const text = parsedChunk.choices[0].delta?.content || "";
@@ -43,11 +42,11 @@ export async function POST(req) {
       }
     });
 
-    response.data.on("end", () => {
+    response.on("end", () => {
       readableStream.push(null); // End the readable stream
     });
 
-    response.data.on("error", (error) => {
+    response.on("error", (error) => {
       console.error("Error during streaming:", error);
       readableStream.destroy(error); // Handle streaming errors
     });
