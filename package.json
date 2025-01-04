@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "PORT=7860, next dev --turbo",
+    "dev": "PORT=7860, node_modules/next/dist/bin/next dev",
     "build": "PORT=7860, next build",
     "start": "PORT=7860, next start"
   },
