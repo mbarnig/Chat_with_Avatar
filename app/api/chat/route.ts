@@ -1,4 +1,4 @@
-import { OpenAIApi } from "openai";
+import { OpenAI } from "openai";
 import { Readable } from "stream";
 
 // Initialize OpenAI API client
